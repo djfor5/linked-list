@@ -44,6 +44,7 @@ class LinkedList {
 
   at(index) { // get node at index
     let tmp = this.value
+    if (index === 0) return tmp
     for (let i = 1; i <= index; i++) {
       tmp = tmp.nextNode
       if (tmp === null && index >= i) return undefined // specified index out of range
@@ -96,6 +97,40 @@ class LinkedList {
     
     // return JSON.stringify(this.value)
   }
+
+  insertAt(value, index) { // insert a new node with the provided value at the given index
+    let currentTmp = this.value
+    let previousTmp
+    if (index === 0) {
+      value.nextNode = this.value
+      this.value = value
+      return true
+    }
+    for (let i = 0; i < index; i++) {
+      if (currentTmp === null && index >= i) return undefined // specified index out of range
+      previousTmp = currentTmp
+      currentTmp = currentTmp.nextNode
+    }
+    value.nextNode = currentTmp
+    previousTmp.nextNode = value
+    return true
+  }
+
+  removeAt(index) { // remove the node at the given index
+    let currentTmp = this.value
+    let previousTmp
+    if (index === 0) {
+      this.value = this.value.nextNode
+      return true
+    }
+    for (let i = 0; i < index; i++) {
+      if (currentTmp === null && index >= i) return undefined // specified index out of range
+      previousTmp = currentTmp
+      currentTmp = currentTmp.nextNode
+    }
+    previousTmp.nextNode = currentTmp.nextNode
+    return true
+  }
 }
 
 
@@ -132,11 +167,19 @@ console.log(linkedList.find('test1'));
 console.log('\nCONTAINS');
 console.log(linkedList.contains('test6'));
 console.log('\nAT');
-console.log(linkedList.at(2));
-
-
-linkedList.pop()
-linkedList.pop()
-linkedList.pop()
+console.log(linkedList.at(5));
+console.log('\nINSERT AT');
+console.log(linkedList.insertAt(new Node('hello'), 1));
+console.log('\nTO STRING');
 console.log(linkedList.toString());
+console.log('\nREMOVE AT');
+console.log(linkedList.removeAt(3));
+console.log('\nTO STRING');
+console.log(linkedList.toString());
+
+
+linkedList.pop()
+linkedList.pop()
+linkedList.pop()
+// console.log(linkedList.toString());
 
