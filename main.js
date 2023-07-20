@@ -84,7 +84,17 @@ class LinkedList {
   }
 
   toString() { // return linked list as a string
-    return JSON.stringify(this.value)
+    let str = ''
+    let tmp = this.value
+    while (tmp.nextNode !== null) { // add each node value except tail
+      str += `( ${tmp.value} ) -> `
+      tmp = tmp.nextNode
+    }
+    str += `( ${tmp.value} ) -> ` // add tail value
+    str += `null`
+    return str
+    
+    // return JSON.stringify(this.value)
   }
 }
 
